@@ -31,7 +31,7 @@
 							<textarea id="textarea1" class="materialize-textarea white-text"></textarea>
 							<label for="textarea1">Search by Artist or UPC</label>
 							<div class="center-align">
-								<a class="btn-large grey" id="search-by-artist-link">SUBMIT</a>
+								<a href="#search-result-go-to" class="btn-large grey" id="search-by-artist-link">SEARCH</a>
 							</div>
 						</div>
 					</div>
@@ -56,7 +56,7 @@
 	<template id="user-album-list-item-template">
 		<li>
 			<dl>
-				<dt class="white-text">Artist</dt>
+				<dt id="search-result-go-to" class="white-text scrollspy">Artist</dt>
 				<dd class="white-text">%artist%</dd>
 				<dt class="white-text">Album</dt>
 				<dd class="white-text">%album%</dd>
@@ -69,14 +69,14 @@
 		</li>
 	</template>
 
-	<!--TRY THIS STYLE FOR ALBUMS instead of carousel http://benlukasboysen.com/albums/  -->
+
 	<template id="user-album-carousel-item-template">
 		<a class="carousel-item" href="#%release%!">
 			<img class="cover" src="%cover%" alt="%artist% - %album%" />
 		</a>
 	</template>
 	<template id="search-result-template">
-		<div class="search-result white-text">
+		<div id="search-result" class="search-result scrollspy white-text">
 			<p class="album">
 				<a class="release-details-link" data-upc="%upc%">%album%</a>
 			</p>
