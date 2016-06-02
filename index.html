@@ -16,6 +16,20 @@
 	<div class="container">
 		<!-- ROW 1 -->
 		<div class="row">
+			<div class="col s5 results">
+				<!-- I can put things here for them to show up on the left -->
+	<!-- RESULTS -->
+	<div id ="search-result-list"></div>
+	<template id="search-result-template">
+		<div id="search-result" class="search-result scrollspy white-text">
+			<p class="album">
+				<a class="release-details-link" data-upc="%upc%">%album%</a>
+			</p>
+			<p class="artist">%artist%</p>
+		</div>
+	</template>
+			</div>
+			<div class="col s6 offset-s1">
 			<a class="gotoSearch"><img src="/Users/peterdoane/Projects/week4/DISCOGS/images/DiscogGopherWhite.png" class="center-align col s6 offset-s3"></a>
 			<!--ROW 2 - contains PRICEsuggestions-->
       <div class="row">
@@ -23,11 +37,12 @@
       </div>
 		<!--ROW 3 SEARCH BAR-->
 			<!--two columns one row  -->
+			<!-- put all modules HERE to make them show up on the right****except for COLLECTION module and searchresults list -->
 		<div class="row" id="search-module">
 			<div class="col s9">
 				<form>
 					<div class="row">
-						<div class="input-field col s6 offset-s5" style="margin-top:10em">
+						<div class="input-field col s12" style="margin-top:10em">
 							<textarea id="textarea1" class="materialize-textarea white-text"></textarea>
 							<label for="textarea1">Search by Artist or UPC</label>
 							<div class="center-align">
@@ -38,11 +53,13 @@
 				</form>
 			</div>
 		</div>
-		<!--ROW 4 - ADD TO COLLECTION-->
 		<div class="row" id="details-module">
-				<button class="btn-large grey" class="gotoSearch" id="cancel-album-button">Cancel (back to search)</button>
+
 				<div class="release"></div>
 		</div>
+	</div></div>
+		<!--ROW 4 - ADD TO COLLECTION-->
+
 		<div class="row" id="user-collection-module">
 			<h3 class="white-text">My Albums ($<span id="user-collection-total-value">0.00</span>)</h3>
 			<a class="gotoSearch white-text btn">Back to Search</a>
@@ -75,23 +92,28 @@
 			<img class="cover" src="%cover%" alt="%artist% - %album%" />
 		</a>
 	</template>
-	<template id="search-result-template">
-		<div id="search-result" class="search-result scrollspy white-text">
-			<p class="album">
-				<a class="release-details-link" data-upc="%upc%">%album%</a>
-			</p>
-			<p class="artist">%artist%</p>
-		</div>
-	</template>
+
 	<template id="release-details-template">
 		<div class="release-details white-text">
+		 <div class="row">
+			 <div class="col s12">
 			<p class="artist white-text">%artist%</p>
 			<p class="album white-text">%album%</p>
 			<p class="edition white-text">%edition%</p>
 			<p class="release-date white-text">%releaseDate%</p>
 			<img class="cover" src="%cover%" alt="%artist% - %album%" />
-			<button class="btn-large teal lighten-4" id="collectionButton" data-id="%id%" data-condition-input-name="condition_%id%" data-upc="%upc%">Add to Collection</button>
 		</div>
+	</div>
+	<div class="row">
+		<div class="col s6">
+			<!--  Align buttons to the right-->
+			<button class="btn teal lighten-4" id="collectionButton" data-id="%id%" data-condition-input-name="condition_%id%" data-upc="%upc%">Add</button>
+		</div>
+		<div class="col s6">
+			<a class="btn grey" id="gotoSearch">Cancel</a>
+		</div>
+		</div>
+	</div>
 	</template>
 	<template id="price-template">
 		<input type="radio" name="condition_%release%" value="%id%" id="condition_%release%_%id%" />

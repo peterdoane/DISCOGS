@@ -10,6 +10,16 @@ body{
   padding: 10;
 }
 
+  /** { border: 1px solid white; }*/
+
+.results{
+  overflow-x: scroll;
+  overflow-y: scroll;
+  height: 600px;
+  margin-top: 50px;
 }
 
-textarea.materialize-textarea {
+.container{
+  margin-left:25px !important;
+  margin-right:0px !important;
+}

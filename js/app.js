@@ -321,6 +321,7 @@ function displaySearchModule() {
 
 function displayDetailsModule() {
     setMainModule($detailsModule);
+    $('#gotoSearch').click(displaySearchModule);
 }
 
 function displayUserCollectionModule() {
@@ -375,19 +376,15 @@ $(document)
         $gotoSearch = $('.gotoSearch');
         $userAlbumList = $('#user-album-list');
         $userCollectionTotalValue = $('#user-collection-total-value');
-        $('.scrollspy').scrollSpy();
+
 
 
         $submit.click(function() {
-          debugger;
             var query = $text.val();
             var searchUrl = createDiscogsSearchUrl(query, 'release');
             var scriptTag = document.createElement("script");
             scriptTag.setAttribute("src", searchUrl + "&callback=collecton");
             document.body.appendChild(scriptTag);
-            setTimeout(function(){
-              $('body').scrollSpy({ target: '#search-result' });
-            }, 1000);
         });
 
         console.log('gotosearchnext');
@@ -423,7 +420,8 @@ function collecton(data) {
 
 
     //$submit.css('display', 'none');
-    $submit.parent().append(collectionView);
+    $("#search-result-list").append(collectionView);
+
     $('.release-details-link').click(function() {
         var upc = $(this).attr('data-upc');
         var model = findReleaseModelByUpc(upc);
