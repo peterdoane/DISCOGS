@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<link rel='shortcut icon' href='http://i.imgur.com/p6lPrcn.png' type='image/x-icon' />
+	<link rel='shortcut icon' href='images/favicon.png' type='image/x-icon' />
 	<title>DiscogGopher</title>
 	<meta charset="UTF-8">
 	<title>Document</title>
@@ -13,6 +13,7 @@
 </head>
 
 <body>
+	<div class="background-image"></div>
 
 
 
@@ -33,8 +34,8 @@
 				<div id="search-result-list"></div>
 				<template id="search-result-template">
 					<div id="search-result" class="search-result white-text">
-						<p class="artist">%artist%</p>
-						<p class="album">
+						<h5 class="artist">%artist%</h5>
+						<div class="album itlaic">
 							<a class="release-details-link" href="#" data-upc="%upc%">%album%</a>
 						</p>
 					</div>
@@ -125,7 +126,7 @@
 					<button class="btn teal lighten-4" id="collectionButton" data-id="%id%" data-condition-input-name="condition_%id%" data-upc="%upc%">Add</button>
 				</div>
 				<div class="col s6">
-					<a class="btn grey" id="gotoSearch" href="#search-result-go-to">Cancel</a>
+					<a href="#search-result-go-to" id="gotoSearch" class="gotoSearch btn">Cancel</a>
 				</div>
 			</div>
 		</div>
@@ -133,6 +134,7 @@
 	<template id="price-template">
 		<input type="radio" name="condition_%release%" value="%id%" id="condition_%release%_%id%" />
 		<label for="condition_%release%_%id%">%condition%</label>
+		<br>
 	</template>
 	<script src="library/underscore.js"></script>
 	<script src="library/jquery-1.12.4.min.js"></script>

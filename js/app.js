@@ -261,6 +261,9 @@ function appendPriceViewTo(releaseId, parentDOMSelector) {
         var model = getModelFromPriceSuggestionResult(data, releaseId);
         // viewItemCollection creates empty ARRAY
         var viewItemCollection = [];
+
+        viewItemCollection.push('<span class="price white-text" data-source="condition_' + releaseId + '"></span><br>');
+
         for (var index = 0; index < model.prices.length; index++) {
             var price = model.prices[index];
             var priceElementId = model.release + '_' + price.id;
@@ -282,7 +285,7 @@ function appendPriceViewTo(releaseId, parentDOMSelector) {
         // </form>
         //
 
-        viewItemCollection.push('<span class="price white-text" data-source="condition_' + releaseId + '"></span>');
+
         var view = viewItemCollection.join('');
         $parent.append(view);
         var $radios = $('input[name="condition_' + releaseId + '"]');
@@ -293,7 +296,7 @@ function appendPriceViewTo(releaseId, parentDOMSelector) {
             if (id !== price.id) {
                 throw new Error('The wrong price was retrieved.');
             }
-            $price.html(price.amount.toString());
+            $price.html(price.amount.toFixed(2).toString());
         })
         console.log({
             data: data,
