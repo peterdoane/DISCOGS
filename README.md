@@ -1,3 +1,5 @@
+http://few-writer.surge.sh/
+
 # DISCOGS
 
 My project is called DiscoGopher. It seeks to help record collectors accurately catalog their collection and display it in a pleasing way. The primary use case would be the user entering a UPC code to get the exact record, entering the condition and saving to his collection. Record Collectors who buy and sell a lot of records on Discogs struggle with uploading text and also the way it displays there records is very boring and ugly. So I seek to make a better looking way to look at a users collection. This can help the users buy and sell records.
