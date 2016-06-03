@@ -1,5 +1,6 @@
 body{
-  background-image:url('../images/background.jpg')
+  background-image:url('https://hackadaycom.files.wordpress.com/2014/02/underwater.gif?w=600');
+  background-size:cover;
 
 
 }
@@ -10,7 +11,7 @@ body{
   padding: 10;
 }
 
-  /** { border: 1px solid white; }*/
+ /** { border: 1px solid white; }*/
 
 .results{
   overflow-x: scroll;
@@ -22,4 +23,12 @@ body{
 .container{
   margin-left:25px !important;
   margin-right:0px !important;
+}
+
+.artist{
+  font-size: 17px;
+}
+
+.carousel{
+  height:200px!important;
 }

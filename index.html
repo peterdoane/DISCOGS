@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<link rel='shortcut icon' href='/Users/peterdoane/Projects/week4/DISCOGS/images/favicon.png' type='image/x-icon'/>
+	<link rel='shortcut icon' href='http://i.imgur.com/p6lPrcn.png' type='image/x-icon' />
 	<title>DiscogGopher</title>
 	<meta charset="UTF-8">
 	<title>Document</title>
@@ -13,107 +13,122 @@
 </head>
 
 <body>
+
+
+
 	<div class="container">
 		<!-- ROW 1 -->
 		<div class="row">
-			<div class="col s5 results">
-				<!-- I can put things here for them to show up on the left -->
-	<!-- RESULTS -->
-	<div id ="search-result-list"></div>
-	<template id="search-result-template">
-		<div id="search-result" class="search-result scrollspy white-text">
-			<p class="album">
-				<a class="release-details-link" data-upc="%upc%">%album%</a>
-			</p>
-			<p class="artist">%artist%</p>
-		</div>
-	</template>
-			</div>
-			<div class="col s6 offset-s1">
-			<a class="gotoSearch"><img src="/Users/peterdoane/Projects/week4/DISCOGS/images/DiscogGopherWhite.png" class="center-align col s6 offset-s3"></a>
-			<!--ROW 2 - contains PRICEsuggestions-->
-      <div class="row">
-        <div class="col 6 pull s7" id="testing-module"></div>
-      </div>
-		<!--ROW 3 SEARCH BAR-->
-			<!--two columns one row  -->
-			<!-- put all modules HERE to make them show up on the right****except for COLLECTION module and searchresults list -->
-		<div class="row" id="search-module">
-			<div class="col s9">
-				<form>
-					<div class="row">
-						<div class="input-field col s12" style="margin-top:10em">
-							<textarea id="textarea1" class="materialize-textarea white-text"></textarea>
-							<label for="textarea1">Search by Artist or UPC</label>
-							<div class="center-align">
-								<a href="#search-result-go-to" class="btn-large grey" id="search-by-artist-link">SEARCH</a>
-							</div>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-		<div class="row" id="details-module">
+			<div class="col s6 results">
 
-				<div class="release"></div>
+				<!-- I can put things here for them to show up on the left -->
+				<div id="user-collection-module">
+					<div class="carousel"></div>
+					<h5 class="white-text">Collection Value($<span id="user-collection-total-value">0.00</span>)</h5>
+					<a class="gotoSearch white-text btn">Back to Search</a>
+				</div>
+				<ul id="user-album-list">
+				</ul>
+				<!-- RESULTS -->
+				<div id="search-result-list"></div>
+				<template id="search-result-template">
+					<div id="search-result" class="search-result white-text">
+						<p class="artist">%artist%</p>
+						<p class="album">
+							<a class="release-details-link" href="#" data-upc="%upc%">%album%</a>
+						</p>
+					</div>
+				</template>
+			</div>
+			<div class="col s6">
+				<div class="row">
+					<div class="col s12 center-align">
+						<a href="#search-result-go-to" id="gotoSearch" class="gotoSearch">
+							<img src="/Users/peterdoane/Projects/week4/DISCOGS/images/DiscogGopherWhite.png" width="85%" class="center-align">
+						</a>
+					</div>
+				</div>
+				<!--ROW 2 - contains PRICEsuggestions-->
+				<div class="row">
+					<div class="col 6 pull s7" id="testing-module"></div>
+				</div>
+				<!--ROW 3 SEARCH BAR-->
+				<!--two columns one row  -->
+				<!-- put all modules HERE to make them show up on the right****except for COLLECTION module and searchresults list -->
+
+				<div class="row" id="search-module">
+					<div class="col s9">
+						<form>
+							<div class="row">
+								<div class="input-field col s12" style="margin-top:10em">
+									<textarea id="textarea1" class="materialize-textarea white-text"></textarea>
+									<label for="textarea1">Search by Artist or UPC</label>
+									<div class="center-align">
+										<a href="#search-result-go-to" class="btn-large grey" id="search-by-artist-link">SEARCH</a>
+										<template id="user-album-list-item-template">
+											<li>
+												<dl>
+													<dt id="search-result-go-to" class="white-text">Artist</dt>
+													<dd class="white-text">%artist%</dd>
+													<dt class="white-text">Album</dt>
+													<dd class="white-text">%album%</dd>
+													<dt class="white-text">Year</dt>
+													<dd class="white-text">%releaseDate%</dd>
+													<dt class="white-text">Edition</dt>
+													<dd class="white-text">%edition%</dd>
+													<dt class="white-text">Price</dt>
+													<dd class="white-text dynamicPrice"></dd>
+												</dl>
+												<img class="cover" src="%cover%" alt="%artist% - %album%" />
+											</li>
+										</template>
+									</div>
+								</div>
+							</div>
+						</form>
+
+					</div>
+				</div>
+				<div class="row" id="details-module">
+
+					<div class="release"></div>
+				</div>
+			</div>
+
 		</div>
-	</div></div>
 		<!--ROW 4 - ADD TO COLLECTION-->
 
-		<div class="row" id="user-collection-module">
-			<h3 class="white-text">My Albums ($<span id="user-collection-total-value">0.00</span>)</h3>
-			<a class="gotoSearch white-text btn">Back to Search</a>
-			<div class="carousel">
-			</div>
-			<ul id="user-album-list">
-			</ul>
-		</div>
+
 	</div>
 
-	<template id="user-album-list-item-template">
-		<li>
-			<dl>
-				<dt id="search-result-go-to" class="white-text scrollspy">Artist</dt>
-				<dd class="white-text">%artist%</dd>
-				<dt class="white-text">Album</dt>
-				<dd class="white-text">%album%</dd>
-				<dt class="white-text">Year</dt>
-				<dd class="white-text">%releaseDate%</dd>
-				<dt class="white-text">Edition</dt>
-				<dd class="white-text">%edition%</dd>
-			</dl>
-			<img class="cover" src="%cover%" alt="%artist% - %album%" />
-		</li>
-	</template>
-
-
-	<template id="user-album-carousel-item-template">
+	<template class="carousel" id="user-album-carousel-item-template">
 		<a class="carousel-item" href="#%release%!">
-			<img class="cover" src="%cover%" alt="%artist% - %album%" />
+			<img class="cover" src="%cover%" alt="%artist% - %album%" href="#"/>
 		</a>
 	</template>
 
+
 	<template id="release-details-template">
 		<div class="release-details white-text">
-		 <div class="row">
-			 <div class="col s12">
-			<p class="artist white-text">%artist%</p>
-			<p class="album white-text">%album%</p>
-			<p class="edition white-text">%edition%</p>
-			<p class="release-date white-text">%releaseDate%</p>
-			<img class="cover" src="%cover%" alt="%artist% - %album%" />
+			<div class="row">
+				<div class="col s12">
+					<p class="artist white-text">%artist%</p>
+					<p class="album white-text">%album%</p>
+					<p class="edition white-text">%edition%</p>
+					<p class="release-date white-text">%releaseDate%</p>
+					<img class="covfer" src="%cover%" alt="%artist% - %album%" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s6">
+					<!--  Align buttons to the right-->
+					<button class="btn teal lighten-4" id="collectionButton" data-id="%id%" data-condition-input-name="condition_%id%" data-upc="%upc%">Add</button>
+				</div>
+				<div class="col s6">
+					<a class="btn grey" id="gotoSearch" href="#search-result-go-to">Cancel</a>
+				</div>
+			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col s6">
-			<!--  Align buttons to the right-->
-			<button class="btn teal lighten-4" id="collectionButton" data-id="%id%" data-condition-input-name="condition_%id%" data-upc="%upc%">Add</button>
-		</div>
-		<div class="col s6">
-			<a class="btn grey" id="gotoSearch">Cancel</a>
-		</div>
-		</div>
-	</div>
 	</template>
 	<template id="price-template">
 		<input type="radio" name="condition_%release%" value="%id%" id="condition_%release%_%id%" />

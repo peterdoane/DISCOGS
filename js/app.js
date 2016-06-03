@@ -131,7 +131,6 @@ function bindReleaseModel(template, model) {
     // keysArr.forEach(function(arrItem){
     //   template.replace(/%arrItem%/g,      model[arrItem]);
     // }) Try to finish this method
-
     var view = template
         .replace(/%album%/g, model.album)
         .replace(/%artist%/g, model.artist)
@@ -151,12 +150,15 @@ function bindPriceModel(template, model) {
             model: model
         }
     });
+    console.log(model.release);
+    console.log(model.id);
     var view = template
         .replace(/%release%/g, model.release)
         .replace(/%condition%/g, model.condition)
         .replace(/%amount%/g, model.amount)
         .replace(/%currency%/g, model.currency)
         .replace(/%id%/g, model.id);
+
     return view;
 }
 
@@ -317,21 +319,26 @@ function setMainModule($mainModule) {
 
 function displaySearchModule() {
     setMainModule($searchModule);
+    $('#user-album-list').show();
 }
 
 function displayDetailsModule() {
     setMainModule($detailsModule);
     $('#gotoSearch').click(displaySearchModule);
+
 }
 
 function displayUserCollectionModule() {
     setMainModule($userCollectionModule);
+    $('#user-album-list').show();
 }
 
 function calculateCollectionTotalValue() {
     var value = 0.0;
     for (var album in storage.models.userRecordCollection) {
         var price = storage.models.userRecordCollection[album].getPrice();
+        // use toFixed() in getPrice function to set decimals to 2?
+
         if (price == null) { /* no condition was selected yet */ } else {
             value += price.amount;
         }
@@ -372,19 +379,27 @@ $(document)
         mainModules = [$detailsModule, $searchModule, $userCollectionModule];
         $cancelAlbum = $('#cancel-album-button');
         // FIX Cancel album button
-        $carousel = $('.carousel');
+        $carousel = $('.carousel')
         $gotoSearch = $('.gotoSearch');
         $userAlbumList = $('#user-album-list');
         $userCollectionTotalValue = $('#user-collection-total-value');
 
+        $("#textarea1").keyup(function(event){
+            if(event.keyCode == 13){
 
+                $submit.click();
+            }
+        });
 
         $submit.click(function() {
+
             var query = $text.val();
             var searchUrl = createDiscogsSearchUrl(query, 'release');
             var scriptTag = document.createElement("script");
             scriptTag.setAttribute("src", searchUrl + "&callback=collecton");
             document.body.appendChild(scriptTag);
+
+
         });
 
         console.log('gotosearchnext');
@@ -409,6 +424,7 @@ function collecton(data) {
         var itemView = findOrCreateResultViewByUpc(model.upc,
             function createView() {
                 return createViewFromModel(model, '#search-result-template', bindReleaseModel);
+
             });
 
         if (collectionViewItems.indexOf(itemView) === -1) {
@@ -421,7 +437,8 @@ function collecton(data) {
 
     //$submit.css('display', 'none');
     $("#search-result-list").append(collectionView);
-
+    $('#user-album-list').hide();
+// TODO: make list disappear
     $('.release-details-link').click(function() {
         var upc = $(this).attr('data-upc');
         var model = findReleaseModelByUpc(upc);
