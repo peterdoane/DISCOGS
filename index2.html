@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<link rel='shortcut icon' href='images/favicon.png' type='image/x-icon' />
+	<title>DiscogGopher</title>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link type="text/css" rel="stylesheet" href="css/styles.css" media="screen,projection">
+	<link type="text/css" rel="stylesheet" href="library/materialize/css/materialize.css" media="screen,projection">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!-- Compiled and minified JavaScript -->
+</head>
+
+<body>
+	<div class="background-image"></div>
+
+
+
+	<div class="container">
+		<!-- ROW 1 -->
+		<div class="row">
+			<div class="col s12 center-align">
+				<a href="#search-result-go-to" id="gotoSearch" class="gotoSearch">
+					<img src="../images/DiscogGopherWhite.png" class="center-align logoImg">
+				</a>
+			</div>
+		</div>
+		<div class="row" id="search-module">
+			<div class="col s6">
+				<div id="detailsView">
+
+				</div>
+			</div>
+			<div class="col s6">
+				<form>
+					<div class="input-field col s12" style="margin-top:10em">
+						<textarea id="searchInput" class="materialize-textarea white-text"></textarea>
+						<label for="searchInput">Search by Artist or UPC</label>
+						<div class="center-align">
+							<button id="searchBtn" class="btn-large grey">SEARCH</button>
+						</div>
+					</div>
+				</form>
+
+			</div>
+		</div>
+
+	</div>
+
+
+
+	<script src="library/jquery-1.12.4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+	<script src="js/discogsApi.js"></script>
+	<script src="js/app2.js"></script>
+</body>
+
+</html>

@@ -1,15 +1,3 @@
-function formatMoney(n, c, d, t) {
-    var c = isNaN(c = Math.abs(c)) ? 2 : c,
-        d = d == undefined ? "." : d,
-        t = t == undefined ? "," : t,
-        s = n < 0 ? "-" : "",
-        i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
-        j = (j = i.length) > 3 ? j % 3 : 0;
-    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
-}
-
-
-
 
 
 /** @function getModelFromReleaseSearchResult- creates a formatted object with  * search result data
@@ -81,6 +69,10 @@ function getModelFromReleaseSearchResult(result) {
         model.id = result.id;
     }
 
+    if (result.price) {
+      model.price = result.price;
+    }
+
     return model;
 }
 
@@ -120,17 +112,8 @@ function getModelFromPriceSuggestionResult(result, releaseId) {
 
 
 function bindReleaseModel(template, model) {
-    console.log({
-        binding: {
-            template: template,
-            model: model
-        }
-    });
-    //   var keysArr = ['album','artist','edition','releaseDate','cover','upc','catno','id'];
-    //
-    // keysArr.forEach(function(arrItem){
-    //   template.replace(/%arrItem%/g,      model[arrItem]);
-    // }) Try to finish this method
+  debugger;
+
     var view = template
         .replace(/%album%/g, model.album)
         .replace(/%artist%/g, model.artist)
@@ -139,19 +122,14 @@ function bindReleaseModel(template, model) {
         .replace(/%cover%/g, model.cover)
         .replace(/%upc%/g, model.upc)
         .replace(/%catno%/g, model.catno)
-        .replace(/%id%/g, model.id);
+        .replace(/%id%/g, model.id)
+        .replace(/%price%/g, model.price);
+
     return view;
 }
 
 function bindPriceModel(template, model) {
-    console.log({
-        binding: {
-            template: template,
-            model: model
-        }
-    });
-    console.log(model.release);
-    console.log(model.id);
+
     var view = template
         .replace(/%release%/g, model.release)
         .replace(/%condition%/g, model.condition)
@@ -162,17 +140,6 @@ function bindPriceModel(template, model) {
     return view;
 }
 
-function bindUserAlbumModel(template, model) {
-    console.log({
-        binding: {
-            template: template,
-            model: model
-        }
-    });
-    var release = model.getRelease();
-    var view = bindReleaseModel(template, release).replace(/%release%/g, release.id);
-    return view;
-}
 /**
 *@params({model},
 {
@@ -192,50 +159,9 @@ function createViewFromModel(model, templateDOMSelector, bindModel) {
     // the jquery object that contains the view template element
     var $template = $(templateDOMSelector);
 
-    console.log({
-        selector: templateDOMSelector,
-        $template: $template
-    });
-
     // the actual html string from the template
     var template = $template.html();
 
-    // invokes the bindModel function parameter
-    //  - the input is
-    //    1:    an html string containing formatted template parameters
-    //         that look like %variable%
-    //  - 2:  the model which contains the data that will be substituted
-    //        in for the template parameters
-    //
-    //    e.g. by convention (but not necessarily)
-    /*        a model might be:
-
-              { name: 'Peter' }
-
-              an html template string might have a selector:
-
-                '#greeting-template'
-
-              pointing to a template element that looks like:
-
-                <template id="greeting-template">
-                    <p class="greeting">Hello %name%.  How are you?</p>
-                </template>
-
-              with the template html (accessed by `$template.html()` ) simply being:
-
-                <p class="greeting">Hello %name%.  How are you?</p>
-
-            bindModel might be:
-
-                function bindGreetingModel(template, model){
-                  return template.replace(/%name%/, model.name);
-                }
-
-            and the result would be:
-
-              <p class="greeting">Hello Peter.  How are you?</p>
-    */
     var view = bindModel(template, model);
     return view;
 }
@@ -251,7 +177,6 @@ function appendPriceViewTo(releaseId, parentDOMSelector) {
     }
 
     var priceUrl = createDiscogsPriceSuggestionUrl(releaseId);
-    console.log('price url: ' + priceUrl);
 
     function handlePriceSuggestionApiResponse(data) {
         //  priceURL used to send Http request
@@ -298,11 +223,6 @@ function appendPriceViewTo(releaseId, parentDOMSelector) {
             }
             $price.html(price.amount.toFixed(2).toString());
         })
-        console.log({
-            data: data,
-            model: model,
-            view: view
-        });
 
     }
 
@@ -339,39 +259,20 @@ function displayUserCollectionModule() {
 function calculateCollectionTotalValue() {
     var value = 0.0;
     for (var album in storage.models.userRecordCollection) {
-        var price = storage.models.userRecordCollection[album].getPrice();
+        storage.models.userRecordCollection[album].price = storage.models.userRecordCollection[album].getPrice();
         // use toFixed() in getPrice function to set decimals to 2?
 
-        if (price == null) { /* no condition was selected yet */ } else {
-            value += price.amount;
+        if (storage.models.userRecordCollection[album].price == null) { /* no condition was selected yet */ } else {
+            value += storage.models.userRecordCollection[album].price.amount;
         }
     }
     return value;
 }
-// =============================================================================
-var collection = [{
-    artist: 'Tom Petty',
-    album: 'aasdf',
-    year: '1988',
-}, {
-    artist: 'Tom Petty',
-    album: 'aasdf',
-    year: '1988',
-}, {
-    artist: 'Tom Petty',
-    album: 'aasdf',
-    year: '1988',
-}]
-console.log(collection);
-
+var collection = [];
 function pushObjects(obj, arr) {
     arr.push(obj);
     return arr;
 }
-
-
-// =============================================================================
-
 $(document)
     .ready(function() {
         $text = $('#textarea1');
@@ -400,12 +301,11 @@ $(document)
             var searchUrl = createDiscogsSearchUrl(query, 'release');
             var scriptTag = document.createElement("script");
             scriptTag.setAttribute("src", searchUrl + "&callback=collecton");
+            console.log(scriptTag);
             document.body.appendChild(scriptTag);
 
 
         });
-
-        console.log('gotosearchnext');
 
         $gotoSearch.click(displaySearchModule);
 
@@ -433,7 +333,7 @@ function collecton(data) {
         if (collectionViewItems.indexOf(itemView) === -1) {
             collectionViewItems.push(itemView);
         }
-        console.log(data);
+
     }
     var collectionView = collectionViewItems.join('');
 
@@ -448,7 +348,6 @@ function collecton(data) {
         var view = findOrCreateReleaseViewByUpc(upc, function() {
             return createViewFromModel(model, '#release-details-template', bindReleaseModel);
         });
-        console.log(model);
         /*
      testingPriceApi(model.id);
       function testingPriceApi(id){
@@ -458,10 +357,6 @@ function collecton(data) {
         appendPriceViewTo(releaseId, '#testing-module');
       };
 */
-        console.log({
-            upc: upc,
-            'display-release-details': model
-        });
 
         var $releaseDiv = $detailsModule.find('.release');
 
@@ -485,31 +380,23 @@ function collecton(data) {
           */
         var $addToCollection = $('#collectionButton');
         $addToCollection.click(function() {
-            console.log({
-                addToCollection: $addToCollection
-            });
             var id = $addToCollection.attr('data-id');
             var upc = $addToCollection.attr('data-upc');
             var conditionRadio = $('input[name="condition_' + id + '"]:checked');
             var priceModel = findPriceModel(id, conditionRadio.val());
-            console.log({
-                id: id,
-                upc: upc,
-                conditionRadio: conditionRadio,
-                priceModel: priceModel
-            });
             var userAlbum = updateUserAlbum(upc, priceModel);
 
             var totalValue = calculateCollectionTotalValue();
             $userCollectionTotalValue.html(formatMoney(totalValue, 2));
 
-            var carouselItemView = createViewFromModel(userAlbum, '#user-album-carousel-item-template', bindUserAlbumModel);
-            var listItemView = createViewFromModel(userAlbum, '#user-album-list-item-template', bindUserAlbumModel);
-            console.log({
-                model: userAlbum,
-                carouselItemView: carouselItemView,
-                listItemView: listItemView
-            });
+            var userAlbumModel = userAlbum.getRelease();
+
+            userAlbumModel.price = userAlbum.price.amount.toFixed();
+
+            var carouselItemView = createViewFromModel(userAlbumModel, '#user-album-carousel-item-template', bindReleaseModel);
+
+            var listItemView = createViewFromModel(userAlbumModel, '#user-album-list-item-template', bindReleaseModel);
+
 
             $carousel.removeClass('initialized')
             $carousel.append(carouselItemView);
@@ -522,9 +409,4 @@ function collecton(data) {
         })
     });
 
-
-
-    console.log({
-        'RecordInfo': data
-    });
 }

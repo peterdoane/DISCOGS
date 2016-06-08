@@ -4,8 +4,18 @@ font-weight: 300;
 font-style: bold;
 }
 
+.logoImg{
+  max-height: 80px;
+}
 
+.title {
+  color: white;
+  font-style: bold;
+}
 
+.itemDetails p{
+  color:white;
+}
 #textarea1 {
 
   font-size: 30px;
@@ -26,9 +36,6 @@ font-style: bold;
   margin-right:0px !important;
 }
 
-.artist{
-  font-size: 17px;
-}
 
 .carousel{
   height:200px!important;
