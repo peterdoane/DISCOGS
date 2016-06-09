@@ -12,10 +12,22 @@ font-style: bold;
   color: white;
   font-style: bold;
 }
+/**{
+  border:1px solid white;
+}*/
 
-.itemDetails p{
+#detailsView {
+  width: 100%;
+}
+
+#detailsView p{
   color:white;
 }
+
+#detailsView h3{
+  color:white;
+}
+
 #textarea1 {
 
   font-size: 30px;
